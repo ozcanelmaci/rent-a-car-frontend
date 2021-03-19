@@ -1,1 +1,12 @@
-<p>color works!</p>
+<table class="table">
+  <thead>
+    <tr class="p-3 mb-2 bg-secondary text-dark">
+      <th>Id</th>
+      <th>Color Name</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let color of colors" class="p-3 mb-2 bg-warning text-dark">
+    <td>{{ color.id }}</td>
+    <td>{{ color.name }}</td>
+  </tr>
+</table>
