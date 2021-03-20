@@ -10,6 +10,7 @@ import { CarService } from 'src/app/services/car.service';
 })
 export class CarComponent implements OnInit {
   cars: Car[] = [];
+  currentCar:Car;
   
   constructor(private carService : CarService, private activatedRoute:ActivatedRoute) { }
 
@@ -20,6 +21,9 @@ export class CarComponent implements OnInit {
       }
       else if(params["colorId"]){
         this.getCarsByColor(params["colorId"])
+      }
+      else if(params["carId"]){
+        this.getCarsByCarId(params["carId"])
       }
       else{
         this.getCars()
@@ -33,9 +37,26 @@ export class CarComponent implements OnInit {
   getCarsByBrand(brandId:number){
     this.carService.getCarsByBrandId(brandId).subscribe(response => {this.cars = response.data})
   }
+
+  getCarsByCarId(carId:number){
+    this.carService.getCarsByCarId(carId).subscribe(response => {this.cars = response.data})
+  }
+
   getCarsByColor(colorId:number) {
     this.carService.getCarsByColor(colorId).subscribe(response =>{
       this.cars = response.data
     })   
+  }
+
+  setCurrentCar(car:Car){
+    this.currentCar = car;
+  }
+
+  getCurrentCarClass(car:Car){
+    if(car == this.currentCar){
+      return "list-group-item active"
+    }else{
+      return "list-group-item"
+    }
   }
 }
