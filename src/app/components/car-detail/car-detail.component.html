@@ -1,1 +1,35 @@
-<p>car-detail works!</p>
+<div>
+  <h3>Araç Bilgisi</h3>
+  <div
+    *ngFor="let image of carImages"
+    class="carousel-item active"
+    class="align-bottom"
+  >
+  <br>
+    <img
+      src="https://localhost:44377/Image/{{ image.imagePath }}"
+      class=""
+      style="height: 100%; width: 100%; object-fit: contain"
+    />
+  </div><br>
+  <table class="table">
+    <thead>
+      <tr class="table-primary">
+        <th>Car Id</th>
+        <th>Brand Name</th>
+        <th>Color Name</th>
+        <th>Model Year</th>
+        <th>Daily Price</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let car of cars" class="p-3 mb-2 bg-dark text-white">
+      <td>{{ car.carId }}</td>
+      <td>{{ car.brandName }}</td>
+      <td>{{ car.colorName }}</td>
+      <td>{{ car.modelYear }}</td>
+      <td>{{ car.dailyPrice }}</td>
+      <td>{{ car.description }}</td>
+    </tr>
+  </table>
+</div>
