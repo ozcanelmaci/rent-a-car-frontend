@@ -1,7 +1,25 @@
-<ul class="list-group">
+<div class="navbar-nav me-auto mb-2 mb-lg-0">
+  <label for="searchBrandName" class="form-label" class="p-2 mb-2 bg-success text-white">Marka ara</label>
+  <input type="text" [(ngModel)]="searchBrandName" class="form-control" id="searchBrandName" placeholder="marka adı giriniz">
+
+  <select [(ngModel)]="selectedBrandId" class="form-select" aria-label="size 1 select example" >
+    <option  
+      *ngFor="let brand of brands | brandSearchPipe:searchBrandName" [class]="getCurrentBrandClass(brand.id)"
+       [value]="brand.id">{{brand.name}}</option>
+  </select><br>
+  <button type = "button" class="btn btn-success" routerLink="/cars/brand/{{selectedBrandId}}">Filtrele</button>
+</div>
+<div *ngIf="searchBrandName" class="alert alert-success"> 
+  {{searchBrandName}} aradınız
+</div>
+
+
+
+
+<!-- <ul class="list-group">
   <li (click)="setCurrentBrand(brand)" 
   routerLink="/cars/brand/{{brand.id}}"
-  *ngFor="let brand of brands" [class]="getCurrentBrandClass(brand)">
+  *ngFor="let brand of brands | brandSearchPipe:searchText" [class]="getCurrentBrandClass(brand)">
     {{ brand.name }}
   </li>
-</ul>
+</ul>  -->

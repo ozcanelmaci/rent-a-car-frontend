@@ -1,21 +1,31 @@
-<table class="table">
-  <thead>
-      <tr class="table-primary">
-          <th>Car Id</th>
-          <th>Brand Name</th>
-          <th>Color Name</th>
-          <th>Model Year</th>
-          <th>Daily Price</th>
-          <th>Description</th>
-      </tr>
-  </thead>
-  <tr (click)="setCurrentCar(car)" routerLink="/cars/{{car.carId}}"
-  *ngFor="let car of cars" class="p-3 mb-2 bg-dark text-white">
-    <td>{{car.carId}}</td>
-    <td>{{car.brandName}}</td>
-    <td>{{car.colorName}}</td>
-    <td>{{car.modelYear}}</td>
-    <td>{{car.dailyPrice}}</td>
-    <td>{{car.description}}</td>
-  </tr>
-</table>
+<div class="navbar-nav me-auto mb-2 mb-lg-0">
+  <label for="searchText" class="form-label" class="p-2 mb-2 bg-success text-white">Araba ara</label>
+  <input type="text" [(ngModel)]="searchText" class="form-control" id="searchText" placeholder="araba markası giriniz">
+  <br>
+  <table class="table">
+    <thead>
+        <tr class="table-primary">
+            <th>Car Id</th>
+            <th>Brand Name</th>
+            <th>Color Name</th>
+            <th>Model Year</th>
+            <th>Daily Price</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr *ngFor="let car of cars | searchPipe:searchText" class="p-3 mb-2 bg-dark text-white">
+      <td>{{car.carId}}</td>
+      <td>{{car.brandName}}</td>
+      <td>{{car.colorName}}</td>
+      <td>{{car.modelYear}}</td>
+      <td>{{car.dailyPrice |currency}}</td>
+      <td>{{car.description}}</td>
+      <td button type = "button" class="btn btn-success" routerLink="/cars/{{car.carId}}">Detaya git</td>
+    </tr>
+  </table>
+</div>
+<div *ngIf="searchText" class="alert alert-success">
+  {{searchText}} aradınız
+</div>
+

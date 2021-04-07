@@ -1,8 +1,23 @@
-<ul class="list-group">
+<div class="navbar-nav me-auto mb-2 mb-lg-0">
+  <label for="searchColorName" class="form-label" class="p-2 mb-2 bg-secondary text-white">Renk ara</label>
+  <input type="text" [(ngModel)]="searchColorName" class="form-control" id="searchColorName" placeholder="renk adı giriniz">
+
+  <select [(ngModel)]="selectedColorId" class="form-select" >
+    <option  
+    *ngFor="let color of colors | colorSearchPipe:searchColorName" [class]="getCurrentColorClass(color.id)" 
+    [value]="color.id">{{color.name}}</option>
+  </select><br>
+  <button type = "button" class="btn btn-secondary" routerLink="/cars/color/{{selectedColorId}}">Filtrele</button>
+</div>
+<div *ngIf="searchColorName" class="alert alert-success">
+  {{searchColorName}} aradınız
+</div>
+
+<!-- <ul class="list-group">
   <li (click)="setCurrentColor(color)" 
   routerLink="/cars/color/{{color.id}}"
-  *ngFor="let color of colors" [class]="getCurrentColorClass(color)">
+  *ngFor="let color of colors | colorSearchPipe:searchText" [class]="getCurrentColorClass(color)">
     {{ color.name }}
   </li>
-</ul>
+</ul> -->
 <!-- <h5 *ngIf="currentColor">{{currentColor.name}} seçtiniz</h5> -->

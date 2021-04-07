@@ -10,7 +10,7 @@ import { CarService } from 'src/app/services/car.service';
 })
 export class CarComponent implements OnInit {
   cars: Car[] = [];
-  currentCar:Car;
+  searchText="";
   
   constructor(private carService : CarService, private activatedRoute:ActivatedRoute) { }
 
@@ -39,17 +39,5 @@ export class CarComponent implements OnInit {
     this.carService.getCarsByColor(colorId).subscribe(response =>{
       this.cars = response.data
     })   
-  }
-
-  setCurrentCar(car:Car){
-    this.currentCar = car;
-  }
-
-  getCurrentCarClass(car:Car){
-    if(car == this.currentCar){
-      return "list-group-item active"
-    }else{
-      return "list-group-item"
-    }
   }
 }
