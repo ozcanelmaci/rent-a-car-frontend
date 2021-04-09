@@ -20,6 +20,7 @@ import { ColorSearchPipePipe } from './pipes/color-search-pipe.pipe';
 import {ToastrModule} from "ngx-toastr";
 import { RentCarComponent } from './components/rent-car/rent-car.component';
 import { MaterialModule } from './material/material.module';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MaterialModule } from './material/material.module';
     SearchPipePipe,
     BrandSearchPipePipe,
     ColorSearchPipePipe,
-    RentCarComponent
+    RentCarComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,

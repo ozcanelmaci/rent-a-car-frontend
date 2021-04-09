@@ -21,6 +21,7 @@ export class CarDetailComponent implements OnInit {
   selectedRentDate:Date;
   selectedReturnDate:Date;
   controller:string = "";
+  rental:Rental;
 
 
   range = new FormGroup({
@@ -37,7 +38,6 @@ export class CarDetailComponent implements OnInit {
         this.getCarDetailsByCarId(params["carId"])
         this.getCarImagesByCarId(params["carId"])
         this.getRentalsByCarId(params["carId"])
-        //this.isSelectedAndValidOrNot(params["carId"])
       }
     })
   }
@@ -48,9 +48,6 @@ export class CarDetailComponent implements OnInit {
     let selectedDates = Object.assign({},this.range.value);
     let rentDate = selectedDates.start;
     let returnDate = selectedDates.end;
-
-    // this.selectedRentDate = selectedDates.start;
-    // this.selectedReturnDate = selectedDates.end;
     console.log(rentDate);
     console.log(returnDate);
 
@@ -92,8 +89,12 @@ export class CarDetailComponent implements OnInit {
     }
     this.toastrService.success("Ödeme sayfasına gitmek için 'Ödeme Yap' butonuna basınız!!!");
     this.controller = "true";
+    //adding new rental
+    this.createRental(carId,this.selectedRentDate,this.selectedReturnDate);
+    this.rentalService.setCurrentRental(this.rental);
     return true;
   }
+
   parseDate(input:any) {
     var parts = input.match(/(\d+)/g);
     // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
@@ -112,5 +113,15 @@ export class CarDetailComponent implements OnInit {
     this.rentalService.getRentalsByCarId(carId).subscribe(response => {this.rentals = response.data
       console.log(response.data)
       console.log(this.rentals)})
+  }
+
+  createRental(carId:number,rentDate:Date,returnDate:Date){
+    let rent: Rental = {
+      carId: carId,
+      customerId : 1,
+      rentDate: rentDate,
+      returnDate: returnDate
+    };
+    this.rental = rent;
   }
 }
