@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Car } from 'src/app/models/car';
 import { CarImage } from 'src/app/models/carImage';
 import { Rental } from 'src/app/models/rental';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import { RentalService } from 'src/app/services/rental.service';
 import {FormGroup, FormControl} from '@angular/forms';
+import { CarDetail } from 'src/app/models/car-detail';
 
 @Component({
   selector: 'app-car-detail',
@@ -14,7 +14,7 @@ import {FormGroup, FormControl} from '@angular/forms';
   styleUrls: ['./car-detail.component.css']
 })
 export class CarDetailComponent implements OnInit {
-  cars: Car[] = [];
+  cars: CarDetail[] = [];
   carImages: CarImage[] = [];
   flag:boolean;
   rentals: Rental[] = [];
@@ -48,8 +48,6 @@ export class CarDetailComponent implements OnInit {
     let selectedDates = Object.assign({},this.range.value);
     let rentDate = selectedDates.start;
     let returnDate = selectedDates.end;
-    console.log(rentDate);
-    console.log(returnDate);
 
     if(rentDate == null){
       this.toastrService.error("Eksik bilgi","Kiralama başlangıç tarihi seçmediniz");
@@ -67,9 +65,6 @@ export class CarDetailComponent implements OnInit {
   }
 
   dateIsValidOrNot(carId:number){
-    console.log(this.rentals)
-    console.log(this.rentals.length);
-
     for (let index = 0; index < this.rentals.length; index++) {
       console.log("loop a girdi");
       
@@ -78,7 +73,7 @@ export class CarDetailComponent implements OnInit {
         this.toastrService.info("Araç başka bir müşteri tarafından kullanımda!!!");
         return false;
       }
-      else if(this.selectedRentDate.getTime() < this.parseDate(rent.returnDate).getTime()){
+      else if(this.selectedRentDate.getTime() <= this.parseDate(rent.returnDate).getTime()){
         this.toastrService.info("Bu aracı " + this.parseDate(rent.returnDate) + " tarihinden itibaren kiralayabilirsiniz!!!");
         return false;
       }
@@ -110,17 +105,17 @@ export class CarDetailComponent implements OnInit {
   }
 
   getRentalsByCarId(carId:number){
-    this.rentalService.getRentalsByCarId(carId).subscribe(response => {this.rentals = response.data
-      console.log(response.data)
-      console.log(this.rentals)})
+    this.rentalService.getRentalsByCarId(carId).subscribe(response => {this.rentals = response.data})
   }
 
-  createRental(carId:number,rentDate:Date,returnDate:Date){
+  createRental(carId:number,selectedRentDate:Date,selectedReturnDate:Date){
+    selectedRentDate.setMinutes(selectedRentDate.getMinutes() + 180);
+    selectedReturnDate.setMinutes(selectedReturnDate.getMinutes() + 180);
     let rent: Rental = {
       carId: carId,
       customerId : 1,
-      rentDate: rentDate,
-      returnDate: returnDate
+      rentDate: selectedRentDate,
+      returnDate: selectedReturnDate
     };
     this.rental = rent;
   }

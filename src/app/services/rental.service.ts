@@ -35,6 +35,10 @@ export class RentalService {
   }
 
   add(rental:Rental):Observable<ResponseModel>{
-    return this.httpClient.post<ResponseModel>(this.apiUrl + "rentals",rental)
+    return this.httpClient.post<ResponseModel>(this.apiUrl + "rentals/add",rental)
+  }
+
+  delete(rental:Rental):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>(this.apiUrl + "rentals/delete",rental)
   }
 }

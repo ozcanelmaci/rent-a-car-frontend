@@ -15,15 +15,16 @@
         </tr>
     </thead>
     <tr *ngFor="let car of cars | searchPipe:searchText" class="p-3 mb-2 bg-dark text-white">
-      <td>{{car.carId}}</td>
+      <td>{{car.id}}</td>
       <td>{{car.brandName}}</td>
       <td>{{car.colorName}}</td>
       <td>{{car.modelYear}}</td>
       <td>{{car.dailyPrice |currency}}</td>
       <td>{{car.description}}</td>
-      <td button type = "button" class="btn btn-success" routerLink="/cars/{{car.carId}}">Detaya git</td>
+      <td button type = "button" class="btn btn-success" routerLink="/cars/{{car.id}}">Detaya git</td>
     </tr>
   </table>
+  <button class="btn btn-success" routerLink="/cars/add">Araba ekle</button>
 </div>
 <div *ngIf="searchText" class="alert alert-success">
   {{searchText}} aradınız

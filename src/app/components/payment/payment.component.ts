@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Payment } from 'src/app/models/payment';
 import { Rental } from 'src/app/models/rental';
 import { CarDetailService } from 'src/app/services/car-detail.service';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -15,9 +17,10 @@ export class PaymentComponent implements OnInit {
   paymentForm : FormGroup;
   rental:Rental;
   cost:number;
+  payment:Payment;
 
   constructor(private formBuilder:FormBuilder, private paymentService:PaymentService, private toastrService:ToastrService
-    ,private rentalService:RentalService, private carDetailService:CarDetailService) { }
+    ,private rentalService:RentalService, private carDetailService:CarDetailService,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.createPaymentForm();
@@ -35,7 +38,7 @@ export class PaymentComponent implements OnInit {
       })
   }
 
-  add(){
+  addingOperations(){
     // //if(validate()) yapıcam sonra
     // if(this.paymentForm.valid){
     //   let paymentModel = Object.assign({},this.paymentForm.value) 
@@ -56,15 +59,23 @@ export class PaymentComponent implements OnInit {
     // let paymentModel = Object.assign({},this.paymentForm.value)
     // console.log(paymentModel.expDate.substring(0,2))
     // console.log(parseInt(paymentModel.expDate,10))
-    
-    this.rentalService.add(this.rental).subscribe(response=>{
-      console.log(response)
-      this.toastrService.success(response.message,"Başarılı")
-    })
-    
+    this.addRental(this.rental);
+    this.addPayment();
   }
 
   //validate()fonksiyonu yaparım buraya 
+
+  addRental(rental:Rental){
+    this.rentalService.add(rental).subscribe(response=>{
+      this.toastrService.success(response.message,"Başarılı")
+    })
+  }
+
+  addPayment(){
+    this.paymentService.addPayment(this.payment).subscribe(response=>{
+      this.toastrService.success(response.message,"Başarılı")
+    })
+  }
 
   calculateCost(){
     console.log(this.rental);
@@ -73,9 +84,26 @@ export class PaymentComponent implements OnInit {
     let dailyPrice : number;
     this.carDetailService.getCarDetailsByCarId(carId).subscribe(response => {dailyPrice = response.data[0].dailyPrice
       this.cost = numberOfDay * dailyPrice;
-      console.log(dailyPrice);
-      console.log(numberOfDay);
-      console.log(this.cost);
+      // console.log(dailyPrice);
+      // console.log(numberOfDay);
+      // console.log(this.cost);
+      // console.log("cost yazdıktan sonra payment oluşturma ")
+      this.createPayment();
     });
   }
+
+  createPayment(){
+    this.activatedRoute.params.subscribe(params=>{
+      // console.log(this.cost + " bakalım")
+      // console.log(params["carId"]);
+      let payment: Payment = {
+        userId : 2,
+        carId : params["carId"],
+        totalAmount : this.cost
+      };
+      this.payment = payment
+    })
+    
+  }
+  
 }

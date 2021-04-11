@@ -28,17 +28,18 @@
       </tr>
     </thead>
     <tr *ngFor="let car of cars" class="p-3 mb-2 bg-dark text-white">
-      <td>{{ car.carId }}</td>
+      <td>{{ car.id }}</td>
       <td>{{ car.brandName }}</td>
       <td>{{ car.colorName }}</td>
       <td>{{ car.modelYear }}</td>
       <td>{{ car.dailyPrice |currency}}</td>
       <td>{{ car.description }}</td>
       <td >
-        <button (click)="isSelectedAndValidOrNot(car.carId)" type="button" color="warn" mat-raised-button>Kirala</button></td>
+        <button (click)="isSelectedAndValidOrNot(car.id)" type="button" color="warn" mat-raised-button>Kirala</button></td>
     </tr>
   </table>
-  
+</div>
+<div class="col-md-2">
   <!-- button (click)="isSelectedAndValidOrNot(car.carId)" type = "button" class="btn btn-success" [routerLink]="routing()" -->
   <mat-form-field appearance="fill" >
     <mat-label>Enter a date range</mat-label>
@@ -52,7 +53,5 @@
     <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
     <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
   </mat-form-field>
-  
-  <p>Selected range: {{range.value | json}} </p><br>
-  <mat-button-toggle color="warn" *ngIf="controller" routerLink="/payment">Ödeme Yap</mat-button-toggle>
+  <mat-button-toggle color="warn" *ngIf="controller" routerLink="/payment/{{cars[0].id}}">Ödeme Yap</mat-button-toggle>
 </div>
