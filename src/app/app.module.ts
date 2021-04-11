@@ -24,6 +24,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { CarAddComponent } from './components/car-add/car-add.component';
 import { BrandAddComponent } from './components/brand-add/brand-add.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
+import { UpdateComponent } from './components/update/update.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ColorAddComponent } from './components/color-add/color-add.component';
     PaymentComponent,
     CarAddComponent,
     BrandAddComponent,
-    ColorAddComponent
+    ColorAddComponent,
+    UpdateComponent
   ],
   imports: [
     BrowserModule,

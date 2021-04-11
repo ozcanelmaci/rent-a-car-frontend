@@ -7,7 +7,9 @@
     *ngFor="let color of colors | colorSearchPipe:searchColorName" [class]="getCurrentColorClass(color.id)" 
     [value]="color.id">{{color.name}}</option>
   </select><br>
-  <button type = "button" class="btn btn-secondary" routerLink="/cars/color/{{selectedColorId}}">Filtrele</button>
+  <button type = "button" class="btn btn-secondary" routerLink="/cars/color/{{selectedColorId}}">Filtrele</button><br>
+  <button type = "button" class="btn btn-secondary" routerLink="/colors/add">Renk Ekle</button>
+
 </div>
 <div *ngIf="searchColorName" class="alert alert-success">
   {{searchColorName}} aradınız
