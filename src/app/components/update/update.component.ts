@@ -51,16 +51,16 @@ export class UpdateComponent implements OnInit {
   }
 
   createBrandUpdateForm() {
-    this.carUpdateForm = this.formBuilder.group({
+    this.brandUpdateForm = this.formBuilder.group({
       id: [this.brand.id, Validators.required],
-      brandName: [this.brand.name, Validators.required]
+      name: [this.brand.name, Validators.required]
     });
   }
 
   createColorUpdateForm() {
-    this.carUpdateForm = this.formBuilder.group({
+    this.colorUpdateForm = this.formBuilder.group({
       id: [this.color.id, Validators.required],
-      colorName: [this.color.name, Validators.required]
+      name: [this.color.name, Validators.required]
     });
   }
 

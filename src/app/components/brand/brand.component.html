@@ -8,7 +8,8 @@
        [value]="brand.id">{{brand.name}}</option>
   </select><br>
   <button type = "button" class="btn btn-success" routerLink="/cars/brand/{{selectedBrandId}}">Filtrele</button> <br>
-  <button type = "button" class="btn btn-success" routerLink="/brands/add">Marka Ekle</button>
+  <button type = "button" class="btn btn-success" routerLink="/brands/add">Marka Ekle</button><br>
+  <button type = "button" class="btn btn-success" routerLink="/brands/update/{{selectedBrandId}}">Marka Güncelle</button>
 </div>
 <div *ngIf="searchBrandName" class="alert alert-success"> 
   {{searchBrandName}} aradınız
